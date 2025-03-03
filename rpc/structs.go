@@ -3,8 +3,8 @@ package rpc
 import (
 	"bytes"
 	"fmt"
-	proto2 "github.com/arf-rpc/arf/proto"
-	"github.com/arf-rpc/arf/status"
+	proto2 "github.com/arf-rpc/arf-go/proto"
+	"github.com/arf-rpc/arf-go/status"
 	"io"
 	"reflect"
 )

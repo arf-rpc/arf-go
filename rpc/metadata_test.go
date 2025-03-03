@@ -8,10 +8,10 @@ import (
 )
 
 func TestMetadata_Encode(t *testing.T) {
-	meta := MetadataFromStringMap(map[string]string{
-		"Hello":      "World",
-		"AnotherKey": "AnotherValue",
-	})
+	meta := MetadataFromStringPairs(
+		"Hello", "World",
+		"AnotherKey", "AnotherValue",
+	)
 	encoded := meta.Encode()
 	expected := []byte{
 		0x00, 0x02, 0x04, 0x05, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x04, 0x0A,
@@ -31,8 +31,8 @@ func TestMetadata_Decode(t *testing.T) {
 	}
 	meta, err := MetadataFromReader(bytes.NewReader(data))
 	require.NoError(t, err)
-	assert.Equal(t, MetadataFromStringMap(map[string]string{
-		"Hello":      "World",
-		"AnotherKey": "AnotherValue",
-	}), meta)
+	assert.Equal(t, MetadataFromStringPairs(
+		"Hello", "World",
+		"AnotherKey", "AnotherValue",
+	), meta)
 }

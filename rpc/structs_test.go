@@ -2,7 +2,7 @@ package rpc
 
 import (
 	"bytes"
-	"github.com/arf-rpc/arf/status"
+	"github.com/arf-rpc/arf-go/status"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -13,7 +13,7 @@ func TestRequest(t *testing.T) {
 		Service:   "org.example.test/FooService",
 		Method:    "Add",
 		Streaming: false,
-		Metadata:  MetadataFromStringMap(map[string]string{"foo": "bar"}),
+		Metadata:  MetadataFromStringPairs("foo", "bar"),
 		Params:    []any{uint32(1), uint32(2)},
 	}
 	encoded, err := req.Wrap()
@@ -31,7 +31,7 @@ func TestResponse(t *testing.T) {
 	res := &Response{
 		Status:    uint16(status.InternalError),
 		Streaming: true,
-		Metadata:  MetadataFromStringMap(map[string]string{"foo": "bar"}),
+		Metadata:  MetadataFromStringPairs("foo", "bar"),
 		Params:    []any{"hello", "world"},
 	}
 	encoded, err := res.Wrap()
@@ -77,7 +77,7 @@ func TestEndStream(t *testing.T) {
 func TestStreamError(t *testing.T) {
 	s := &StreamError{
 		Status:   uint16(status.Aborted),
-		Metadata: MetadataFromStringMap(map[string]string{"foo": "bar"}),
+		Metadata: MetadataFromStringPairs("foo", "bar"),
 	}
 	encoded, err := s.Wrap()
 	require.NoError(t, err)

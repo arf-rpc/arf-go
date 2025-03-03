@@ -2,24 +2,41 @@ package rpc
 
 import (
 	"bytes"
-	proto2 "github.com/arf-rpc/arf/proto"
+	proto2 "github.com/arf-rpc/arf-go/proto"
 	"io"
 	"slices"
 )
 
-func MetadataFromMap(m map[string][]byte) Metadata {
+type MetaKey interface{ []byte | string }
+
+func MetaPair[V MetaKey](k string, v V) *MetadataPair {
+	return &MetadataPair{
+		Key:   k,
+		Value: []byte(v),
+	}
+}
+
+func MetadataFromItems(m ...*MetadataPair) Metadata {
 	meta := Metadata{}
-	for k, v := range m {
-		meta.Add(k, v)
+	for _, v := range m {
+		meta.Add(v.Key, v.Value)
 	}
 	return meta
 }
 
-func MetadataFromStringMap(m map[string]string) Metadata {
-	meta := Metadata{}
-	for k, v := range m {
-		meta.AddString(k, v)
+func MetadataFromStringPairs(pairs ...string) Metadata {
+	if len(pairs)%2 != 0 {
+		panic("pairs must be even")
 	}
+
+	meta := Metadata{}
+
+	for i := 0; i < len(pairs); i += 2 {
+		key := pairs[i]
+		value := pairs[i+1]
+		meta.AddString(key, value)
+	}
+
 	return meta
 }
 

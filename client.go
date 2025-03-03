@@ -3,8 +3,8 @@ package arf
 import (
 	"context"
 	"crypto/tls"
-	"github.com/arf-rpc/arf/rpc"
-	"github.com/arf-rpc/arf/wire"
+	"github.com/arf-rpc/arf-go/rpc"
+	"github.com/arf-rpc/arf-go/wire"
 	"net"
 )
 

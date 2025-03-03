@@ -2,9 +2,9 @@ package arf
 
 import (
 	"context"
-	"github.com/arf-rpc/arf/rpc"
-	"github.com/arf-rpc/arf/status"
-	"github.com/arf-rpc/arf/wire"
+	"github.com/arf-rpc/arf-go/rpc"
+	"github.com/arf-rpc/arf-go/status"
+	"github.com/arf-rpc/arf-go/wire"
 )
 
 type Context interface {

@@ -1,11 +1,10 @@
-module github.com/arf-rpc/arf
+module github.com/arf-rpc/arf-go
 
 go 1.23
 
 toolchain go1.23.6
 
 require (
-	github.com/go-logr/logr v1.4.2
 	github.com/go-stdlog/stdlog v0.0.16
 	github.com/stretchr/testify v1.10.0
 )
