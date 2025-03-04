@@ -242,9 +242,9 @@ func (s *srv) rejectInvalidStreamMsg(str wire.Stream, code status.Status, msg st
 	enc, err := (&rpc.Response{
 		Status:    uint16(code),
 		Streaming: false,
-		Metadata: rpc.MetadataFromMap(map[string][]byte{
-			"arf-status-description": []byte(msg),
-		}),
+		Metadata: rpc.MetadataFromStringPairs(
+			"arf-status-description", msg,
+		),
 		Params: nil,
 	}).Wrap()
 	if err != nil {
@@ -269,9 +269,9 @@ func (s *srv) emitError(str wire.Stream, status *status.BadStatus, resp Context)
 		enc []byte
 		err error
 	)
-	meta := rpc.MetadataFromMap(map[string][]byte{
-		"arf-status-description": []byte(status.Message),
-	})
+	meta := rpc.MetadataFromStringPairs(
+		"arf-status-description", status.Message,
+	)
 	if ctx.sendStreamStarted {
 		enc, err = (&rpc.StreamError{
 			Status:   uint16(status.Code),
